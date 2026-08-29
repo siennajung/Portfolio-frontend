@@ -1,13 +1,49 @@
-import Link from "next/link";
+'use client';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Container from '@/components/Container';
 
 export function SiteHeader() {
+  const pathname = usePathname();
+
+  const baseClass = "text-sm font-medium transition-colors";
+  const activeClass = "text-text-h";
+  const inactiveClass = "text-text hover:text-text-h";
+
   return (
-    <header className="sticky top-0 z-50 border-b border-black/[.08] bg-white/80 backdrop-blur dark:border-white/[.145] dark:bg-black/80">
-      <div className="mx-auto flex h-16 w-full max-w-6xl items-center px-6">
-        <Link href="/" className="text-lg font-medium tracking-tight">
-          Sienna Jung
-        </Link>
-      </div>
+    <header className="bg-header sticky top-0 z-50 h-16 select-none">
+      <Container>
+        <div className="flex h-16 items-center justify-between">
+          <Link href="/" className="text-text-h text-base font-medium">
+            Sienna Jung
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="flex items-center gap-8">
+            <Link
+              href="/projects"
+              className={`${baseClass} ${pathname === '/projects' ? activeClass : inactiveClass}`}
+            >
+              Projects
+            </Link>
+
+            <Link
+              href="/experiences"
+              className={`${baseClass} ${pathname === '/experiences' ? activeClass : inactiveClass}`}
+            >
+              Experiences
+            </Link>
+
+            <Link
+              href="/recommendations"
+              className={`${baseClass} ${pathname === '/recommendations' ? activeClass : inactiveClass}`}
+            >
+              Recommendations
+            </Link>
+          </nav>
+        </div>
+      </Container>
     </header>
   );
 }
